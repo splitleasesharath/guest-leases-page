@@ -1375,8 +1375,249 @@
             </div>
           </div>
           <div class="lease-card-content">
-            <!-- Content would be here when expanded -->
-            <p style="padding:24px;color:#6B7280;text-align:center">This lease has not started yet. Details will be available once the lease period begins.</p>
+            <!-- Host Contact -->
+            <h4 class="section-title">Host Contact Information</h4>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i data-lucide="phone" style="width:16px;height:16px"></i>
+                <a href="tel:+15558765432">(555) 876-5432</a>
+              </div>
+              <div class="contact-item">
+                <i data-lucide="mail" style="width:16px;height:16px"></i>
+                <a href="mailto:mike.wilson@splitlease.com">mike.wilson@splitlease.com</a>
+              </div>
+              <div class="contact-item">
+                <i data-lucide="map-pin" style="width:16px;height:16px"></i>
+                <span>456 Ocean Drive, Santa Monica, CA</span>
+              </div>
+            </div>
+
+            <!-- Host Name -->
+            <div style="margin-top:16px;padding:12px 16px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:48px;height:48px;background:#7C3AED;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:18px">MW</div>
+                <div>
+                  <div style="font-weight:600;color:#1F2937">Mike Wilson</div>
+                  <div style="font-size:13px;color:#6B7280">Wilson Beach Properties LLC</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Agreement Section -->
+            <div class="agreement-section">
+              <h4 class="agreement-number">PT Agreement # PTA-2024-001235</h4>
+            </div>
+
+            <!-- Payment Records - No payments yet -->
+            <h4 class="section-title">Payment Records</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Scheduled Date</th>
+                    <th>Actual Date</th>
+                    <th>Rent</th>
+                    <th>Maint. Fee</th>
+                    <th>Damage Deposit</th>
+                    <th>Total</th>
+                    <th>Bank Transaction #</th>
+                    <th>Receipt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Apr 1, 2024</td>
+                    <td>-</td>
+                    <td>$1,800.00</td>
+                    <td>$150.00</td>
+                    <td>$600.00</td>
+                    <td><strong>$2,550.00</strong></td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>May 1, 2024</td>
+                    <td>-</td>
+                    <td>$1,800.00</td>
+                    <td>$150.00</td>
+                    <td>$0.00</td>
+                    <td><strong>$1,950.00</strong></td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button class="action-btn primary">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Periodic Tenancy Agreement (PDF)
+              </button>
+              <button class="action-btn primary">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Supplemental Terms (PDF)
+              </button>
+              <button class="action-btn outline">
+                <i data-lucide="calendar" style="width:16px;height:16px"></i>
+                View/Change Dates
+              </button>
+              <button class="action-btn primary">
+                <i data-lucide="credit-card" style="width:16px;height:16px"></i>
+                Credit Card Auth Form
+              </button>
+              <button class="action-btn outline">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Payment Summary
+              </button>
+              <button class="action-btn outline">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Reservation Details
+              </button>
+            </div>
+
+            <!-- Stays Table - Future stays -->
+            <h4 class="section-title">Your Stays</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Week #</th>
+                    <th>Period</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Week 1</strong></td>
+                    <td>Apr 1, 2024 - Apr 8, 2024</td>
+                    <td><span class="status-badge stay-status-not-started">Not Started</span></td>
+                    <td>
+                      <div class="stay-actions">
+                        <button class="stay-action-btn checkin" onclick="openModal()"><i data-lucide="car" style="width:14px;height:14px"></i> I'm on my way</button>
+                        <button class="stay-action-btn checkin" onclick="openModal()"><i data-lucide="home" style="width:14px;height:14px"></i> I'm here!</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Week 2</strong></td>
+                    <td>Apr 8, 2024 - Apr 15, 2024</td>
+                    <td><span class="status-badge stay-status-not-started">Not Started</span></td>
+                    <td><span style="color:#9CA3AF">-</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Week 3</strong></td>
+                    <td>Apr 15, 2024 - Apr 22, 2024</td>
+                    <td><span class="status-badge stay-status-not-started">Not Started</span></td>
+                    <td><span style="color:#9CA3AF">-</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Week 4</strong></td>
+                    <td>Apr 22, 2024 - Apr 29, 2024</td>
+                    <td><span class="status-badge stay-status-not-started">Not Started</span></td>
+                    <td><span style="color:#9CA3AF">-</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="show-all-btn">Show All Stays (8)</button>
+
+            <!-- Date Change Requests - Empty for new lease -->
+            <h4 class="section-title">Date Change Requests</h4>
+            <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+              <button class="action-btn primary"><i data-lucide="plus" style="width:16px;height:16px"></i> Request Changes</button>
+            </div>
+            <div style="padding:40px;text-align:center;background:#F9FAFB;border-radius:8px;color:#9CA3AF">
+              <i data-lucide="clock" style="width:24px;height:24px;margin-bottom:12px"></i>
+              <p style="margin:0">No date change requests</p>
+            </div>
+
+            <!-- Flexibility Score - Initial state -->
+            <div class="flexibility-score-container">
+              <div class="score-header">
+                <h4 class="score-title">
+                  <i data-lucide="trending-up" style="width:18px;height:18px"></i>
+                  Your Flexibility Score
+                </h4>
+                <button class="see-reputation-btn">
+                  See your reputation
+                  <i data-lucide="external-link" style="width:14px;height:14px"></i>
+                </button>
+              </div>
+
+              <div class="score-main">
+                <div class="score-circle">
+                  <svg class="score-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#E5E7EB" stroke-width="8"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#9CA3AF" stroke-width="8" stroke-linecap="round" stroke-dasharray="0 283"/>
+                  </svg>
+                  <div class="score-value">
+                    <span class="score-number">-</span>
+                    <span class="score-label">Not Started</span>
+                  </div>
+                </div>
+
+                <div class="score-stats">
+                  <div class="stat-group">
+                    <div class="stat-item">
+                      <i data-lucide="calendar" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Nights Used</div>
+                      </div>
+                    </div>
+                    <div class="stat-item">
+                      <i data-lucide="calendar" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">56</div>
+                        <div class="stat-label">Nights Remaining</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-group">
+                    <div class="stat-item">
+                      <i data-lucide="clock" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">56</div>
+                        <div class="stat-label">Original Nights</div>
+                      </div>
+                    </div>
+                    <div class="stat-item">
+                      <i data-lucide="clock" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">56</div>
+                        <div class="stat-label">New Proposed Nights</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="requests-summary">
+                <div class="summary-row">
+                  <span class="summary-label">Requests done by you:</span>
+                  <span class="summary-value">0</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Requests done by host:</span>
+                  <span class="summary-value">0</span>
+                </div>
+                <div class="summary-row pending">
+                  <span class="summary-label">Pending Requests:</span>
+                  <span class="summary-value">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Emergency Assistance -->
+            <div class="emergency-section">
+              <button class="emergency-btn">
+                <i data-lucide="alert-triangle" style="width:20px;height:20px"></i>
+                Emergency Assistance
+              </button>
+            </div>
           </div>
         </div>
       </div>
