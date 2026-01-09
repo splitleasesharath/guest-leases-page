@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guest Leases - Split Lease Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Global Reset and Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F7F8F9;
+      color: #1F2937;
+      line-height: 1.5;
+    }
+
+    /* Header Styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: #7C3AED;
+      text-decoration: none;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4D4D4D;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: #7C3AED;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .explore-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #7C3AED;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .explore-btn:hover {
+      background: #6D28D9;
+    }
+
+    .icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 16px;
+      height: 16px;
+      background: #EF4444;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid #E5E7EB;
+      border-radius: 24px;
+      cursor: pointer;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4D4D4D;
+    }
+
+    /* Page Content */
+    .page-content {
+      padding-top: 70px;
+      min-height: 100vh;
+    }
+
+    .page-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1F2937;
+      margin-bottom: 32px;
+    }
+
+    .leases-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Lease Card */
+    .lease-card {
+      background: #ffffff;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .lease-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .lease-card.expanded {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .lease-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .lease-card-header:hover {
+      background: #FAFAFA;
+    }
+
+    .lease-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .listing-image {
+      width: 80px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .listing-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .listing-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1F2937;
+      margin: 0 0 4px;
+    }
+
+    .listing-address {
+      font-size: 14px;
+      color: #6B7280;
+      margin: 0 0 4px;
+    }
+
+    .lease-dates {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #7C3AED;
+    }
+
+    .lease-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .lease-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-active {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    .status-not-started {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+
+    .lease-week-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px;
+      background: #F9FAFB;
+      border-radius: 8px;
+    }
+
+    .week-label {
+      font-size: 11px;
+      color: #6B7280;
+      text-transform: uppercase;
+    }
+
+    .week-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #7C3AED;
+      line-height: 1;
+    }
+
+    .week-total {
+      font-size: 11px;
+      color: #9CA3AF;
+    }
+
+    .expand-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #6B7280;
+    }
+
+    .expand-toggle:hover {
+      background: #F3F4F6;
+      color: #7C3AED;
+    }
+
+    /* Lease Card Content */
+    .lease-card-content {
+      padding: 0 24px 24px;
+      border-top: 1px solid #E5E7EB;
+      display: none;
+    }
+
+    .lease-card.expanded .lease-card-content {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1F2937;
+      margin: 24px 0 16px;
+    }
+
+    /* Host Contact */
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-top: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #4B5563;
+    }
+
+    .contact-item a {
+      color: #7C3AED;
+      text-decoration: none;
+    }
+
+    .contact-item svg {
+      color: #9CA3AF;
+    }
+
+    /* Agreement Section */
+    .agreement-section {
+      margin-top: 20px;
+      padding: 16px;
+      background: #F9FAFB;
+      border-radius: 8px;
+    }
+
+    .agreement-number {
+      font-size: 18px;
+      font-weight: 700;
+      color: #4D4D4D;
+      margin: 0;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn.primary {
+      background: #7C3AED;
+      color: #ffffff;
+      border: none;
+    }
+
+    .action-btn.primary:hover {
+      background: #6D28D9;
+    }
+
+    .action-btn.outline {
+      background: #ffffff;
+      color: #7C3AED;
+      border: 2px solid #7C3AED;
+    }
+
+    .action-btn.outline:hover {
+      background: #F5F3FF;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    thead {
+      background: #F9FAFB;
+    }
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #4B5563;
+      border-bottom: 1px solid #F3F4F6;
+    }
+
+    tbody tr:hover {
+      background: #FAFAFA;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .stay-status-completed {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    .stay-status-in-progress {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .stay-status-not-started {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+
+    .request-status-waiting {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .request-status-accepted {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    /* Stay Actions */
+    .stay-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stay-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .stay-action-btn.see-review {
+      background: #F5F3FF;
+      color: #7C3AED;
+      border: 1px solid #DDD6FE;
+    }
+
+    .stay-action-btn.submit-review {
+      background: #7C3AED;
+      color: #ffffff;
+    }
+
+    .stay-action-btn.checkin {
+      background: #10B981;
+      color: #ffffff;
+    }
+
+    .stay-action-btn.leaving {
+      background: #F59E0B;
+      color: #ffffff;
+    }
+
+    .approve-btn {
+      background: #10B981;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .reject-btn {
+      background: #EF4444;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .show-all-btn {
+      padding: 8px 16px;
+      background: transparent;
+      color: #7C3AED;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Flexibility Score */
+    .flexibility-score-container {
+      background: #F9FAFB;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .score-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .score-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1F2937;
+    }
+
+    .score-title svg {
+      color: #7C3AED;
+    }
+
+    .see-reputation-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: transparent;
+      color: #7C3AED;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid #7C3AED;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .score-main {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .score-circle {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+    }
+
+    .score-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .score-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .score-number {
+      display: block;
+      font-size: 36px;
+      font-weight: 700;
+      color: #1F2937;
+      line-height: 1;
+    }
+
+    .score-label {
+      display: block;
+      font-size: 12px;
+      color: #6B7280;
+      margin-top: 4px;
+    }
+
+    .score-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .stat-group {
+      display: flex;
+      gap: 24px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #ffffff;
+      border-radius: 8px;
+      flex: 1;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1F2937;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #6B7280;
+    }
+
+    .requests-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 8px;
+      margin-top: 24px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .summary-label {
+      font-size: 14px;
+      color: #4B5563;
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1F2937;
+    }
+
+    .summary-row.pending .summary-value {
+      color: #F59E0B;
+    }
+
+    /* Emergency Button */
+    .emergency-section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    .emergency-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: #FEF2F2;
+      color: #DC2626;
+      font-size: 14px;
+      font-weight: 600;
+      border: 2px solid #FECACA;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .emergency-btn:hover {
+      background: #FEE2E2;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1F2937;
+      color: #ffffff;
+      padding: 60px 0 24px;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .footer-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: #9CA3AF;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid #374151;
+    }
+
+    .footer-legal p {
+      font-size: 13px;
+      color: #9CA3AF;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #ffffff;
+      z-index: 1;
+    }
+
+    .modal-header {
+      padding: 32px 24px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+      border-radius: 16px 16px 0 0;
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 16px 0 0;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .quick-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .quick-action-btn.on-my-way {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .quick-action-btn.im-here {
+      background: #7C3AED;
+      color: #ffffff;
+    }
+
+    .message-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1F2937;
+    }
+
+    .message-input {
+      padding: 14px 16px;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      font-size: 14px;
+      resize: none;
+    }
+
+    .message-input:focus {
+      outline: none;
+      border-color: #7C3AED;
+    }
+
+    .send-message-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: #7C3AED;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+
+    .send-message-btn:hover {
+      background: #6D28D9;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .header-nav {
+        display: none;
+      }
+
+      .lease-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .lease-header-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .action-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .score-main {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stat-group {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo-text">Split Lease</a>
+      <nav class="header-nav">
+        <span class="nav-link">For Hosts <i data-lucide="chevron-down" style="width:16px;height:16px"></i></span>
+        <span class="nav-link">For Guests <i data-lucide="chevron-down" style="width:16px;height:16px"></i></span>
+        <a href="#" class="nav-link">How It Works</a>
+      </nav>
+      <div class="header-right">
+        <button class="explore-btn">
+          <i data-lucide="search" style="width:16px;height:16px"></i>
+          Explore Rentals
+        </button>
+        <button class="icon-btn">
+          <i data-lucide="bell" style="width:20px;height:20px;color:#4D4D4D"></i>
+          <span class="notification-badge">3</span>
+        </button>
+        <button class="user-btn">
+          <i data-lucide="user" style="width:20px;height:20px;color:#4D4D4D"></i>
+          <span class="user-name">John Doe</span>
+          <i data-lucide="chevron-down" style="width:16px;height:16px;color:#4D4D4D"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="page-content">
+    <div class="page-container">
+      <h1 class="page-title">John's Proposals and Leases</h1>
+
+      <div class="leases-list">
+        <!-- Lease Card 1 (Expanded) -->
+        <div class="lease-card expanded" id="lease-1">
+          <div class="lease-card-header" onclick="toggleLease('lease-1')">
+            <div class="lease-header-left">
+              <div class="listing-image">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400" alt="Modern Downtown Apartment">
+              </div>
+              <div>
+                <h3 class="listing-title">Modern Downtown Apartment</h3>
+                <p class="listing-address">123 Main Street, Apt 4B, San Francisco, CA</p>
+                <div class="lease-dates">
+                  <i data-lucide="calendar" style="width:14px;height:14px"></i>
+                  <span>Jan 1, 2024 - Mar 31, 2024</span>
+                </div>
+              </div>
+            </div>
+            <div class="lease-header-right">
+              <span class="lease-status status-active">Active</span>
+              <div class="lease-week-info">
+                <span class="week-label">Week</span>
+                <span class="week-number">3</span>
+                <span class="week-total">of 12</span>
+              </div>
+              <button class="expand-toggle">
+                <i data-lucide="chevron-up" style="width:24px;height:24px"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="lease-card-content">
+            <!-- Host Contact -->
+            <h4 class="section-title">Host Contact Information</h4>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i data-lucide="phone" style="width:16px;height:16px"></i>
+                <a href="tel:+15559876543">(555) 987-6543</a>
+              </div>
+              <div class="contact-item">
+                <i data-lucide="mail" style="width:16px;height:16px"></i>
+                <a href="mailto:sarah.johnson@splitlease.com">sarah.johnson@splitlease.com</a>
+              </div>
+              <div class="contact-item">
+                <i data-lucide="map-pin" style="width:16px;height:16px"></i>
+                <span>123 Main Street, Apt 4B</span>
+              </div>
+            </div>
+
+            <!-- Agreement Section -->
+            <div class="agreement-section">
+              <h4 class="agreement-number">PT Agreement # PTA-2024-001234</h4>
+            </div>
+
+            <!-- Payment Records -->
+            <h4 class="section-title">Payment Records</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Scheduled Date</th>
+                    <th>Actual Date</th>
+                    <th>Rent</th>
+                    <th>Maint. Fee</th>
+                    <th>Damage Deposit</th>
+                    <th>Total</th>
+                    <th>Bank Transaction #</th>
+                    <th>Receipt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Jan 1, 2024</td>
+                    <td>Jan 1, 2024</td>
+                    <td>$1,500.00</td>
+                    <td>$100.00</td>
+                    <td>$500.00</td>
+                    <td><strong>$2,100.00</strong></td>
+                    <td>TXN-123456</td>
+                    <td><button style="background:#F5F3FF;color:#7C3AED;border:none;padding:6px 10px;border-radius:6px;cursor:pointer"><i data-lucide="download" style="width:16px;height:16px"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td>Feb 1, 2024</td>
+                    <td>Feb 1, 2024</td>
+                    <td>$1,500.00</td>
+                    <td>$100.00</td>
+                    <td>$0.00</td>
+                    <td><strong>$1,600.00</strong></td>
+                    <td>TXN-123457</td>
+                    <td><button style="background:#F5F3FF;color:#7C3AED;border:none;padding:6px 10px;border-radius:6px;cursor:pointer"><i data-lucide="download" style="width:16px;height:16px"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td>Mar 1, 2024</td>
+                    <td>-</td>
+                    <td>$1,500.00</td>
+                    <td>$100.00</td>
+                    <td>$0.00</td>
+                    <td><strong>$1,600.00</strong></td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button class="action-btn primary">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Periodic Tenancy Agreement (PDF)
+              </button>
+              <button class="action-btn primary">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Supplemental Terms (PDF)
+              </button>
+              <button class="action-btn outline">
+                <i data-lucide="calendar" style="width:16px;height:16px"></i>
+                View/Change Dates
+              </button>
+              <button class="action-btn primary">
+                <i data-lucide="credit-card" style="width:16px;height:16px"></i>
+                Credit Card Auth Form
+              </button>
+              <button class="action-btn outline">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Payment Summary
+              </button>
+              <button class="action-btn outline">
+                <i data-lucide="file-text" style="width:16px;height:16px"></i>
+                Reservation Details
+              </button>
+            </div>
+
+            <!-- Stays Table -->
+            <h4 class="section-title">Your Stays</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Week #</th>
+                    <th>Period</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Week 1</strong></td>
+                    <td>Jan 1, 2024 - Jan 8, 2024</td>
+                    <td><span class="status-badge stay-status-completed">Completed</span></td>
+                    <td>
+                      <div class="stay-actions">
+                        <button class="stay-action-btn see-review"><i data-lucide="eye" style="width:14px;height:14px"></i> See Review</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Week 2</strong></td>
+                    <td>Jan 8, 2024 - Jan 15, 2024</td>
+                    <td><span class="status-badge stay-status-completed">Completed</span></td>
+                    <td>
+                      <div class="stay-actions">
+                        <button class="stay-action-btn see-review"><i data-lucide="eye" style="width:14px;height:14px"></i> See Review</button>
+                        <button class="stay-action-btn submit-review"><i data-lucide="edit" style="width:14px;height:14px"></i> Review</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Week 3</strong></td>
+                    <td>Jan 15, 2024 - Jan 22, 2024</td>
+                    <td><span class="status-badge stay-status-in-progress">In Progress</span></td>
+                    <td>
+                      <div class="stay-actions">
+                        <button class="stay-action-btn submit-review"><i data-lucide="edit" style="width:14px;height:14px"></i> Review</button>
+                        <button class="stay-action-btn leaving" onclick="openModal()"><i data-lucide="log-out" style="width:14px;height:14px"></i> Leaving Property</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Week 4</strong></td>
+                    <td>Jan 22, 2024 - Jan 29, 2024</td>
+                    <td><span class="status-badge stay-status-not-started">Not Started</span></td>
+                    <td>
+                      <div class="stay-actions">
+                        <button class="stay-action-btn checkin" onclick="openModal()"><i data-lucide="car" style="width:14px;height:14px"></i> I'm on my way</button>
+                        <button class="stay-action-btn checkin" onclick="openModal()"><i data-lucide="home" style="width:14px;height:14px"></i> I'm here!</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="show-all-btn">Show All Stays (5)</button>
+
+            <!-- Date Change Requests -->
+            <h4 class="section-title">Date Change Requests</h4>
+            <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+              <button class="action-btn primary"><i data-lucide="plus" style="width:16px;height:16px"></i> Request Changes</button>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Requested by</th>
+                    <th>Request</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div><strong>John Doe</strong></div>
+                      <div style="font-size:12px;color:#9CA3AF">Jan 5, 2024</div>
+                    </td>
+                    <td>
+                      <div><strong>Check-in date change</strong></div>
+                      <div style="font-size:12px;color:#6B7280">Jan 1, 2024 → Jan 2, 2024</div>
+                    </td>
+                    <td><span class="status-badge request-status-accepted">Accepted</span></td>
+                    <td>$150/night</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div><strong>Sarah Johnson</strong></div>
+                      <div style="font-size:12px;color:#9CA3AF">Jan 18, 2024</div>
+                    </td>
+                    <td>
+                      <div><strong>Check-out date change</strong></div>
+                      <div style="font-size:12px;color:#6B7280">Jan 29, 2024 → Jan 28, 2024</div>
+                    </td>
+                    <td><span class="status-badge request-status-waiting">Waiting for Answer</span></td>
+                    <td>$135/night<br><span style="font-size:11px;color:#9CA3AF">(90% of regular)</span></td>
+                    <td>
+                      <div style="display:flex;gap:8px">
+                        <button class="approve-btn"><i data-lucide="check" style="width:14px;height:14px"></i> Approve</button>
+                        <button class="reject-btn"><i data-lucide="x" style="width:14px;height:14px"></i> Reject</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Flexibility Score -->
+            <div class="flexibility-score-container">
+              <div class="score-header">
+                <h4 class="score-title">
+                  <i data-lucide="trending-up" style="width:18px;height:18px"></i>
+                  Your Flexibility Score
+                </h4>
+                <button class="see-reputation-btn">
+                  See your reputation
+                  <i data-lucide="external-link" style="width:14px;height:14px"></i>
+                </button>
+              </div>
+
+              <div class="score-main">
+                <div class="score-circle">
+                  <svg class="score-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#E5E7EB" stroke-width="8"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-dasharray="240 283"/>
+                  </svg>
+                  <div class="score-value">
+                    <span class="score-number">85</span>
+                    <span class="score-label">Excellent</span>
+                  </div>
+                </div>
+
+                <div class="score-stats">
+                  <div class="stat-group">
+                    <div class="stat-item">
+                      <i data-lucide="calendar" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">21</div>
+                        <div class="stat-label">Nights Used</div>
+                      </div>
+                    </div>
+                    <div class="stat-item">
+                      <i data-lucide="calendar" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">63</div>
+                        <div class="stat-label">Nights Remaining</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-group">
+                    <div class="stat-item">
+                      <i data-lucide="clock" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">84</div>
+                        <div class="stat-label">Original Nights</div>
+                      </div>
+                    </div>
+                    <div class="stat-item">
+                      <i data-lucide="clock" style="width:16px;height:16px;color:#7C3AED"></i>
+                      <div>
+                        <div class="stat-value">84</div>
+                        <div class="stat-label">New Proposed Nights</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="requests-summary">
+                <div class="summary-row">
+                  <span class="summary-label">Requests done by you:</span>
+                  <span class="summary-value">1</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Requests done by host:</span>
+                  <span class="summary-value">1</span>
+                </div>
+                <div class="summary-row pending">
+                  <span class="summary-label">Pending Requests:</span>
+                  <span class="summary-value">1</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Emergency Assistance -->
+            <div class="emergency-section">
+              <button class="emergency-btn">
+                <i data-lucide="alert-triangle" style="width:20px;height:20px"></i>
+                Emergency Assistance
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lease Card 2 (Collapsed) -->
+        <div class="lease-card" id="lease-2">
+          <div class="lease-card-header" onclick="toggleLease('lease-2')">
+            <div class="lease-header-left">
+              <div class="listing-image">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400" alt="Cozy Beach House">
+              </div>
+              <div>
+                <h3 class="listing-title">Cozy Beach House</h3>
+                <p class="listing-address">456 Ocean Drive, Santa Monica, CA</p>
+                <div class="lease-dates">
+                  <i data-lucide="calendar" style="width:14px;height:14px"></i>
+                  <span>Apr 1, 2024 - May 31, 2024</span>
+                </div>
+              </div>
+            </div>
+            <div class="lease-header-right">
+              <span class="lease-status status-not-started">Not Started</span>
+              <div class="lease-week-info">
+                <span class="week-label">Week</span>
+                <span class="week-number">0</span>
+                <span class="week-total">of 8</span>
+              </div>
+              <button class="expand-toggle">
+                <i data-lucide="chevron-down" style="width:24px;height:24px"></i>
+              </button>
+            </div>
+          </div>
+          <div class="lease-card-content">
+            <!-- Content would be here when expanded -->
+            <p style="padding:24px;color:#6B7280;text-align:center">This lease has not started yet. Details will be available once the lease period begins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <h4 class="footer-title">For Hosts</h4>
+          <ul class="footer-links">
+            <li><a href="#">List Your Property</a></li>
+            <li><a href="#">Host Dashboard</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Host Protection</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">For Guests</h4>
+          <ul class="footer-links">
+            <li><a href="#">Find a Rental</a></li>
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">Guest Protection</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Get the App</h4>
+          <ul class="footer-links">
+            <li><a href="#">App Store</a></li>
+            <li><a href="#">Google Play</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <p>&copy; 2024 Split Lease. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Check-in/Check-out Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <button class="modal-close-btn" onclick="closeModal()">
+        <i data-lucide="x" style="width:24px;height:24px"></i>
+      </button>
+      <div class="modal-header">
+        <i data-lucide="send" style="width:48px;height:48px;color:#fff"></i>
+        <h2 class="modal-title">Check-In Flow</h2>
+      </div>
+      <div class="modal-body">
+        <div class="quick-actions">
+          <button class="quick-action-btn on-my-way">
+            <i data-lucide="car" style="width:20px;height:20px"></i>
+            I'm on my way
+          </button>
+          <button class="quick-action-btn im-here">
+            <i data-lucide="home" style="width:20px;height:20px"></i>
+            I'm here!
+          </button>
+        </div>
+        <div class="message-section">
+          <label class="message-label">Send a message to your host</label>
+          <textarea class="message-input" rows="4" placeholder="Hi! I'm on my way to the property."></textarea>
+          <button class="send-message-btn">
+            <i data-lucide="send" style="width:16px;height:16px"></i>
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Toggle lease card expansion
+    function toggleLease(leaseId) {
+      const card = document.getElementById(leaseId);
+      card.classList.toggle('expanded');
+
+      // Update the chevron icon
+      const toggle = card.querySelector('.expand-toggle i');
+      if (card.classList.contains('expanded')) {
+        toggle.setAttribute('data-lucide', 'chevron-up');
+      } else {
+        toggle.setAttribute('data-lucide', 'chevron-down');
+      }
+      lucide.createIcons();
+    }
+
+    // Open modal
+    function openModal() {
+      document.getElementById('modal-overlay').classList.add('active');
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    // Close modal when clicking overlay
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
