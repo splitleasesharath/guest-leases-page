@@ -1,0 +1,344 @@
+.lease-card {
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.lease-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.lease-card.expanded {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.lease-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.lease-card-header:hover {
+  background: #FAFAFA;
+}
+
+.lease-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.listing-image {
+  width: 80px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.listing-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+}
+
+.lease-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.listing-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 0;
+}
+
+.listing-address {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #6B7280;
+  margin: 0;
+}
+
+.lease-dates {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #7C3AED;
+}
+
+.lease-header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.lease-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-not-started {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.status-active {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.status-started {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.status-completed {
+  background: #E5E7EB;
+  color: #374151;
+}
+
+.status-terminated {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.lease-week-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+  background: #F9FAFB;
+  border-radius: 8px;
+}
+
+.week-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.week-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #7C3AED;
+  line-height: 1;
+}
+
+.week-total {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: #9CA3AF;
+}
+
+.expand-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #6B7280;
+  transition: all 0.2s ease;
+}
+
+.expand-toggle:hover {
+  background: #F3F4F6;
+  color: #7C3AED;
+}
+
+/* Content */
+.lease-card-content {
+  padding: 0 24px 24px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.section-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 24px 0 16px;
+}
+
+/* Host Contact Section */
+.host-contact-section {
+  padding-top: 16px;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #4B5563;
+}
+
+.contact-item a {
+  color: #7C3AED;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-item a:hover {
+  color: #6D28D9;
+  text-decoration: underline;
+}
+
+.contact-item svg {
+  color: #9CA3AF;
+  flex-shrink: 0;
+}
+
+/* Agreement Section */
+.agreement-section {
+  margin-top: 20px;
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 8px;
+}
+
+.agreement-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #4D4D4D;
+  margin: 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+  background: #7C3AED;
+  color: #ffffff;
+  border: none;
+}
+
+.action-btn.primary:hover {
+  background: #6D28D9;
+}
+
+.action-btn.outline {
+  background: #ffffff;
+  color: #7C3AED;
+  border: 2px solid #7C3AED;
+}
+
+.action-btn.outline:hover {
+  background: #F5F3FF;
+}
+
+/* Emergency Button */
+.emergency-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.emergency-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #FEF2F2;
+  color: #DC2626;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid #FECACA;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emergency-btn:hover {
+  background: #FEE2E2;
+  border-color: #FCA5A5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lease-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .lease-header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

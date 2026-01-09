@@ -1,0 +1,242 @@
+.date-change-requests-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.date-change-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.request-changes-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #7C3AED;
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.request-changes-btn:hover {
+  background: #6D28D9;
+}
+
+.no-requests {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  background: #F9FAFB;
+  border-radius: 8px;
+  color: #9CA3AF;
+}
+
+.no-requests p {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+}
+
+.requests-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  min-width: 700px;
+}
+
+.requests-table thead {
+  background: #F9FAFB;
+}
+
+.requests-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #E5E7EB;
+  white-space: nowrap;
+}
+
+.requests-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #4B5563;
+  border-bottom: 1px solid #F3F4F6;
+  vertical-align: middle;
+}
+
+.requests-table tbody tr:hover {
+  background: #FAFAFA;
+}
+
+.requests-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.requester-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.requester-name {
+  font-weight: 500;
+  color: #1F2937;
+}
+
+.request-date {
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.request-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.request-type {
+  font-weight: 500;
+  color: #1F2937;
+}
+
+.request-dates {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.request-status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.request-status-waiting {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.request-status-accepted {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.request-status-rejected {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.request-status-expiring {
+  background: #FFEDD5;
+  color: #9A3412;
+}
+
+.request-status-expired {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.request-status-cancelled {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.price-cell {
+  white-space: nowrap;
+}
+
+.price-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.price-diff {
+  font-size: 11px;
+  color: #9CA3AF;
+}
+
+.action-cell {
+  min-width: 180px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.approve-btn {
+  background: #10B981;
+  color: #ffffff;
+  border: none;
+}
+
+.approve-btn:hover {
+  background: #059669;
+}
+
+.reject-btn {
+  background: #EF4444;
+  color: #ffffff;
+  border: none;
+}
+
+.reject-btn:hover {
+  background: #DC2626;
+}
+
+.no-action {
+  color: #9CA3AF;
+}
+
+@media (max-width: 768px) {
+  .requests-table th,
+  .requests-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .action-cell {
+    min-width: auto;
+  }
+}

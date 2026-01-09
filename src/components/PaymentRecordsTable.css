@@ -1,0 +1,85 @@
+.payment-records-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+.payment-records-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  min-width: 800px;
+}
+
+.payment-records-table thead {
+  background: #F9FAFB;
+}
+
+.payment-records-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #E5E7EB;
+  white-space: nowrap;
+}
+
+.payment-records-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #4B5563;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.payment-records-table tbody tr:hover {
+  background: #FAFAFA;
+}
+
+.payment-records-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.total-cell {
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.download-receipt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #F5F3FF;
+  color: #7C3AED;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.download-receipt-btn:hover {
+  background: #7C3AED;
+  color: #ffffff;
+}
+
+.payment-records-empty {
+  padding: 32px;
+  text-align: center;
+  color: #9CA3AF;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  background: #F9FAFB;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .payment-records-table th,
+  .payment-records-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
